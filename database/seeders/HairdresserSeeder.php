@@ -19,9 +19,10 @@ class HairdresserSeeder extends Seeder
         $data = [
             [
                 'user_id' => 1,
-                'name' => 'Patryk',
-                'surname' => 'Kacprowicz',
-                'hairdresser_number' => 1234656372
+                'name' => 'Kamil',
+                'surname' => 'Michacki',
+                'hairdresser_number' => 1637,
+                'phone_number' => 'sdhjkasuhkgujaf'
             ]
         ];
 

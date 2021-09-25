@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HairdresserRequest;
+use App\Models\Hairdresser;
+use App\Models\User;
 use App\Services\HairdresserService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class HairdresserController extends Controller
@@ -28,7 +32,8 @@ class HairdresserController extends Controller
     public function index(): View
     {
         return view('hairdressers.index', [
-            'hairdressers' => $this->hairdresserService->getAll()
+            'hairdressers' => $this->hairdresserService->getAll(),
+            'users' => User::all()
         ]);
     }
 
@@ -45,23 +50,26 @@ class HairdresserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param   HairdresserRequest $request
+     * @param   Hairdresser $hairdresser
+     * @return  JsonResponse
      */
-    public function store(Request $request)
+    public function store(HairdresserRequest $request, Hairdresser $hairdresser): JsonResponse
     {
-        //
+        return $this->hairdresserService->store($request, $hairdresser);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Hairdresser $hairdresser
+     * @return  View
      */
-    public function show($id)
+    public function show(Hairdresser $hairdresser): View
     {
-        //
+        return view('hairdressers.show', [
+            'hairdresser' => $hairdresser
+        ]);
     }
 
     /**

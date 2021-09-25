@@ -18,6 +18,7 @@ class CreateHairdressersTable extends Migration
             $table->integer('hairdresser_number')->unique();
             $table->string('name');
             $table->string('surname');
+            $table->string('phone_number');
             $table->timestamps();
         });
 
