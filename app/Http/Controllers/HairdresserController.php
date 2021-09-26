@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\HairdresserRequest;
+use App\Http\Requests\HairdresserUpdateRequest;
 use App\Models\Hairdresser;
 use App\Models\User;
 use App\Services\HairdresserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class HairdresserController extends Controller
@@ -17,7 +19,7 @@ class HairdresserController extends Controller
 
     /**
      * HairdresserController constructor.
-     * @param HairdresserService $hairdresserService
+     * @param   HairdresserService $hairdresserService
      */
     public function __construct(HairdresserService $hairdresserService)
     {
@@ -27,7 +29,7 @@ class HairdresserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @return  View
      */
     public function index(): View
     {
@@ -35,16 +37,6 @@ class HairdresserController extends Controller
             'hairdressers' => $this->hairdresserService->getAll(),
             'users' => User::all()
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -75,34 +67,37 @@ class HairdresserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Hairdresser $hairdresser
+     * @return  View
      */
-    public function edit($id)
+    public function edit(Hairdresser $hairdresser): View
     {
-        //
+        return view('hairdressers.edit', [
+            'hairdresser' => $hairdresser,
+            'user' => auth()->user()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   HairdresserUpdateRequest $request
+     * @param   Hairdresser $hairdresser
+     * @return  RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(HairdresserUpdateRequest $request, Hairdresser $hairdresser): RedirectResponse
     {
-        //
+        return $this->hairdresserService->update($request, $hairdresser);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Hairdresser $hairdresser
+     * @return  JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Hairdresser $hairdresser): JsonResponse
     {
-        //
+        return $this->hairdresserService->destroy($hairdresser);
     }
 }
