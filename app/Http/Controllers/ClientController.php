@@ -4,16 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
 use App\Http\Requests\ClientUpdateRequest;
-use App\Models\Booking;
 use App\Models\Client;
-use App\Models\ClientLibrary;
 use App\Models\Hairdresser;
 use App\Services\ClientService;
-use Database\Seeders\ClientSeeder;
-use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -66,17 +61,6 @@ class ClientController extends Controller
             'client' => $client,
             'hairdressers' => $hairdresser
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
