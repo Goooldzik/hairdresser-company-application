@@ -10,6 +10,10 @@ class Booking extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'status'
+    ];
+
     /**
      * @return BelongsTo
      */
