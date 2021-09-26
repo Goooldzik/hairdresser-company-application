@@ -13,7 +13,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                <div class="row my-3">
                     <div class="col-sm-4">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addClient">Add client</button>
                     </div>
