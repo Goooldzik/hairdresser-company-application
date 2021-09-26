@@ -8,7 +8,6 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-body">
-
                             </div>
                         </div>
                     </div>
@@ -19,6 +18,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Hairdresser</th>
+                                <th scope="col">Client</th>
                                 <th scope="col">Content</th>
                                 <th scope="col">Created at</th>
                             </tr>
@@ -26,7 +26,16 @@
                             <tbody>
                             @foreach($library as $lib)
                                 <tr>
-                                    <td>{{ $lib->hairdresser->name }} {{ $lib->hairdresser->surname }}</td>
+                                    <td>
+                                        <a href="{{ route('hairdressers.show', $lib->hairdresser->id) }}">
+                                            {{ $lib->hairdresser->name }} {{ $lib->hairdresser->surname }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('clients.show', $lib->client->id) }}">
+                                            {{ $lib->client->name }} {{ $lib->client->surname }}
+                                        </a>
+                                    </td>
                                     <td>{{ $lib->content }}</td>
                                     <td>{{ $lib->created_at }}</td>
                                 </tr>
