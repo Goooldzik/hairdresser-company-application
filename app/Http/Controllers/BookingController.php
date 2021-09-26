@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
-use App\Models\Hairdresser;
 use App\Services\BookingService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
-use Psy\Util\Json;
 
 class BookingController extends Controller
 {
@@ -52,36 +49,24 @@ class BookingController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Booking $booking
+     * @return  JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Booking $booking): JsonResponse
     {
-        //
+        return $this->bookingService->update($booking);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Booking $booking
+     * @return  JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Booking $booking): JsonResponse
     {
-        //
+        return $this->bookingService->destroy($booking);
     }
 }
