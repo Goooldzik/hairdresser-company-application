@@ -11,6 +11,13 @@ class Client extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'surname',
+        'phone_number',
+        'email'
+    ];
+
     /**
      * @return BelongsTo
      */
