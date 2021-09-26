@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientLibraryRequest;
 use App\Models\Client;
 use App\Models\ClientLibrary;
+use App\Services\ClientLibraryService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -13,6 +14,18 @@ use Psy\Util\Json;
 
 class ClientLibraryController extends Controller
 {
+    /** @var ClientLibraryService  */
+    protected ClientLibraryService $clientLibraryService;
+
+    /**
+     * ClientLibraryController constructor.
+     * @param ClientLibraryService $clientLibraryService
+     */
+    public function __construct(ClientLibraryService $clientLibraryService)
+    {
+        $this->clientLibraryService = $clientLibraryService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,15 +40,6 @@ class ClientLibraryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param   ClientLibraryRequest $request
@@ -44,59 +48,15 @@ class ClientLibraryController extends Controller
      */
     public function store(ClientLibraryRequest $request, ClientLibrary $clientLibrary): JsonResponse
     {
-        try {
-
-            $clientLibrary->insert($request->validated());
-
-            return response()->json([
-                'status' => 'success'
-            ]);
-
-        } catch (Exception $error) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $error->getMessage()
-            ]);
-        }
+        return $this->clientLibraryService->store($request, $clientLibrary);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param   int  $id
+     * @param   ClientLibrary $clientLibrary
      */
-    public function show(int $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param   int  $id
-     */
-    public function edit(int $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param   Request $request
-     * @param   int  $id
-     */
-    public function update(Request $request, int $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param   int $id
-     */
-    public function destroy(int $id)
+    public function show(ClientLibrary $clientLibrary)
     {
         //
     }
