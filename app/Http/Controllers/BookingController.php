@@ -2,31 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookingRequest;
 use App\Models\Booking;
+use App\Models\Hairdresser;
+use App\Services\BookingService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Psy\Util\Json;
 
 class BookingController extends Controller
 {
+    /** @var BookingService  */
+    protected BookingService $bookingService;
+
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * BookingController constructor.
+     * @param BookingService $bookingService
      */
-    public function create()
+    public function __construct(BookingService $bookingService)
     {
-        //
+        $this->bookingService = $bookingService;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param   BookingRequest  $request
+     * @param   Booking $booking
+     * @return  JsonResponse
      */
-    public function store(Request $request)
+    public function store(BookingRequest $request, Booking $booking): JsonResponse
     {
-        //
+        return $this->bookingService->store($request, $booking);
     }
 
     /**
