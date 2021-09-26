@@ -3,14 +3,14 @@
 
 namespace App\Services;
 
-
 use App\Http\Requests\HairdresserRequest;
+use App\Http\Requests\HairdresserUpdateRequest;
 use App\Models\Hairdresser;
 use App\Models\HairdresserProfile;
 use App\Repository\HairdresserRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use phpDocumentor\Reflection\DocBlock\Tags\Method;
+use Illuminate\Http\RedirectResponse;
 
 class HairdresserService
 {
@@ -19,7 +19,7 @@ class HairdresserService
 
     /**
      * HairdresserService constructor.
-     * @param HairdresserRepository $hairdresserRepository
+     * @param   HairdresserRepository $hairdresserRepository
      */
     public function __construct(HairdresserRepository $hairdresserRepository)
     {
@@ -28,9 +28,9 @@ class HairdresserService
 
     /**
      * This method return all hairdressers from DB
-     * @return mixed
+     * @return  mixed
      */
-    public function getAll()
+    public function getAll(): mixed
     {
         return $this->hairdresserRepository->getAll();
     }
@@ -60,7 +60,65 @@ class HairdresserService
         }
     }
 
-    public function createProfile(HairdresserRequest $request)
+    /**
+     * @param   HairdresserUpdateRequest $request
+     * @param   Hairdresser $hairdresser
+     * @return  RedirectResponse
+     */
+    public function update(HairdresserUpdateRequest $request, Hairdresser $hairdresser): RedirectResponse
+    {
+        try {
+
+            $update = [
+                'name' => $request->get('name'),
+                'surname' => $request->get('surname'),
+                'phone_number' => $request->get('phone_number')
+            ];
+
+            $hairdresser->update($update);
+
+            $profile = [];
+
+            $profile['description'] = $request->get('description');
+            if(!is_null($request->get('photo_path')))
+                $profile['photo_path'] = $request->file('photo')->store('hairdressers');
+
+            $hairdresser->profile()->update($profile);
+
+            return back()->with('status', 'Successful update account');
+
+        } catch (Exception $error) {
+            return back()->with('status', $error->getMessage());
+        }
+    }
+
+    /**
+     * @param   Hairdresser $hairdresser
+     * @return  JsonResponse
+     */
+    public function destroy(Hairdresser $hairdresser): JsonResponse
+    {
+        try {
+
+            $hairdresser->profile()->delete();
+            $hairdresser->delete();
+
+            return response()->json([
+                'status' => 'success'
+            ]);
+
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $error->getMessage()
+            ])->setStatusCode(500);
+        }
+    }
+
+    /**
+     * @param   HairdresserRequest $request
+     */
+    protected function createProfile(HairdresserRequest $request): void
     {
         $hairdresser = Hairdresser::all()->where('phone_number', $request->get('phone_number'))->first();
 
