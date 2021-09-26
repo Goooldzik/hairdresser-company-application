@@ -49,7 +49,9 @@
                     <div class="card-body">
                         @foreach($client->bookings()->orderBy('id', 'desc')->get() as $booking)
                             <div>
-                                {{ $booking->visit_at }}
+                                <a href="{{ route('booking.show', $booking->id) }}">
+                                    {{ $booking->visit_at }}
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -63,7 +65,7 @@
                         Last 5 visits
                     </div>
                     <div class="card-body">
-                        @foreach($client->library()->limit(5)->get() as $library)
+                        @foreach($client->getLastVisits() as $library)
                             <span style="float: left;">{{ $library->content }}</span>
                             <span style="float: right;">{{ $library->created_at }}</span>
                             <br />
