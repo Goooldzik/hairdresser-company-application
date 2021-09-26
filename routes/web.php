@@ -37,6 +37,8 @@ Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients
 Route::delete('/client/{client}', [ClientController::class, 'destroy'])->name('clients.delete');
 Route::put('/client/{client}', [ClientController::class, 'update'])->name('clients.update');
 
+Route::get('/client/search/{clientLibraryNumber}', [LibraryController::class, 'show'])->name('clients.search');
+
 Route::get('/hairdressers', [HairdresserController::class, 'index'])->name('hairdressers.index');
 Route::post('/hairdressers', [HairdresserController::class, 'store'])->name('hairdressers.store');
 Route::get('/hairdresser/update/{hairdresser}', [HairdresserController::class, 'edit'])->name('hairdressers.edit');
@@ -45,4 +47,5 @@ Route::post('/hairdresser/{hairdresser}', [HairdresserController::class, 'show']
 
 Route::get('/booking/{booking}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/booking', [BookingController::class, 'store'])->name('bookings.store');
+Route::put('/booking/{booking}', [BookingController::class, 'update'])->name('booking.change');
 
