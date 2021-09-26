@@ -13,6 +13,12 @@ class Hairdresser extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'surname',
+        'phone_number'
+    ];
+
     /**
      * @return BelongsTo
      */
