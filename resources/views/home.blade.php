@@ -42,6 +42,9 @@
                                 <div>
                                     <a href="{{ route('library.index', $client->id) }}">Go to client library</a>
                                 </div>
+                                <div>
+                                    <a href="{{ route('clients.show', $client->id) }}">Go to client profile</a>
+                                </div>
                             </div>
                         @endforeach
                     </div>
