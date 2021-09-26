@@ -39,7 +39,10 @@ Route::put('/client/{client}', [ClientController::class, 'update'])->name('clien
 
 Route::get('/hairdressers', [HairdresserController::class, 'index'])->name('hairdressers.index');
 Route::post('/hairdressers', [HairdresserController::class, 'store'])->name('hairdressers.store');
+Route::get('/hairdresser/update/{hairdresser}', [HairdresserController::class, 'edit'])->name('hairdressers.edit');
+Route::put('/hairdresser/update/{hairdresser}', [HairdresserController::class, 'update'])->name('hairdressers.update');
 Route::post('/hairdresser/{hairdresser}', [HairdresserController::class, 'show'])->name('hairdressers.show');
 
 Route::get('/booking/{booking}', [BookingController::class, 'show'])->name('booking.show');
 Route::post('/booking', [BookingController::class, 'store'])->name('bookings.store');
+
