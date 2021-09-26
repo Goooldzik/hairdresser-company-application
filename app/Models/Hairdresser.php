@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -50,5 +51,15 @@ class Hairdresser extends Model
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public function getBookings()
+    {
+        return $this->bookings()
+            ->where('status', 0)
+            ->where('visit_at', '<', Carbon::tomorrow())
+            ->where('visit_at', '>', Carbon::today())
+            ->orderBy('id', 'desc')
+            ->get();
     }
 }
