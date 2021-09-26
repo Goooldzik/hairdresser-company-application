@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="card">
                 <div class="card-header">Your information</div>
 
@@ -29,7 +29,7 @@
                     <br />
                     <div class="row">
                         @foreach(auth()->user()->hairdresser->clients as $client)
-                            <div class="col-sm-4">
+                            <div class="col-sm-4 py-3">
                                 <div>
                                     Client library number: {{ $client->client_library_number }}
                                 </div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <div class="card">
                 <div class="card-header">
                     Your clients today
@@ -59,8 +59,8 @@
                 <div class="card-body">
                     @foreach(auth()->user()
                         ->hairdresser->getBookings() as $booking)
-                        <div>
-                            <span style="float:left;">
+                        <div style="align-content: space-between">
+                            <span>
                                 {{ $booking->client->name }} {{ $booking->client->surname }}
                             </span>
                             <span style="float:right;">
