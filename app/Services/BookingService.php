@@ -33,4 +33,48 @@ class BookingService
             ]);
         }
     }
+
+    /**
+     * @param   Booking $booking
+     * @return  JsonResponse
+     */
+    public function update(Booking $booking): JsonResponse
+    {
+        try {
+
+            $booking->update(['status' => 1]);
+
+            return response()->json([
+                'status' => 'success'
+            ]);
+
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $error->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * @param   Booking $booking
+     * @return  JsonResponse
+     */
+    public function destroy(Booking $booking): JsonResponse
+    {
+        try {
+
+            $booking->delete();
+
+            return response()->json([
+                'status' => 'success'
+            ]);
+
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $error->getMessage()
+            ]);
+        }
+    }
 }
