@@ -61,7 +61,9 @@
                         ->hairdresser->getBookings() as $booking)
                         <div style="align-content: space-between">
                             <span>
-                                {{ $booking->client->name }} {{ $booking->client->surname }}
+                                <a href="{{ route('booking.show', $booking->id) }}">
+                                    {{ $booking->client->name }} {{ $booking->client->surname }}
+                                </a>
                             </span>
                             <span style="float:right;">
                                 {{ $booking->visit_at }}
