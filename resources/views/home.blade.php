@@ -55,12 +55,7 @@
                 </div>
                 <div class="card-body">
                     @foreach(auth()->user()
-                        ->hairdresser
-                        ->bookings()
-                        ->where('status', 0)
-                        ->where('visit_at', '<', Carbon\Carbon::tomorrow())
-                        ->orderBy('id', 'desc')
-                        ->get() as $booking)
+                        ->hairdresser->getBookings() as $booking)
                         <div>
                             <span style="float:left;">
                                 {{ $booking->client->name }} {{ $booking->client->surname }}
