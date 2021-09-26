@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
+use App\Http\Requests\ClientUpdateRequest;
+use App\Models\Booking;
 use App\Models\Client;
+use App\Models\ClientLibrary;
+use App\Models\Hairdresser;
 use App\Services\ClientService;
 use Database\Seeders\ClientSeeder;
 use Exception;
@@ -38,16 +42,6 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param   ClientRequest $request
@@ -62,12 +56,16 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Client $client
+     * @param   Hairdresser $hairdresser
+     * @return  View
      */
-    public function show($id)
+    public function show(Client $client, Hairdresser $hairdresser): View
     {
-        //
+        return view('clients.show', [
+            'client' => $client,
+            'hairdressers' => $hairdresser
+        ]);
     }
 
     /**
@@ -84,23 +82,23 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Client $client
+     * @param   ClientUpdateRequest $request
+     * @return  JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Client $client, ClientUpdateRequest $request): JsonResponse
     {
-        //
+        return $this->clientService->update($client, $request);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param   Client $client
+     * @return  JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Client $client): JsonResponse
     {
-        //
+        return $this->clientService->destroy($client);
     }
 }
